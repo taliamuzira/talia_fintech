@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapid Link - Transfer Success</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .success-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #FFD700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+        }
+
+        .success-icon i {
+            font-size: 2.5rem;
+            color: #000000;
+        }
+
+        .success-title {
+            color: #000000;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .success-message {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .transfer-details {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid #FFD700;
+        }
+
+        .transfer-details h3 {
+            color: #000000;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .transfer-details p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #FFD700;
+        }
+
+        .transfer-details p:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            color: #000000;
+            background: #FFD700;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .button {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .primary-button {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000000;
+            border: none;
+        }
+
+        .secondary-button {
+            background: white;
+            color: #000000;
+            border: 1px solid #FFD700;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(255, 215, 0, 0.3);
+        }
+
+        .tracking-info {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #FFD700;
+        }
+
+        .tracking-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .tracking-number {
+            font-weight: 600;
+            color: #000000;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-section">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            
+            <h1 class="success-title">Transfer Successful!</h1>
+            <p class="success-message">Your money transfer has been processed successfully.</p>
+
+            <div class="transfer-details">
+                <h3>Transfer Details</h3>
+                <p>
+                    <span class="label">From:</span>
+                    <span class="value" id="fromDetails"></span>
+                </p>
+                <p>
+                    <span class="label">To:</span>
+                    <span class="value" id="toDetails"></span>
+                </p>
+                <p>
+                    <span class="label">Amount:</span>
+                    <span class="value" id="transferAmount"></span>
+                </p>
+                <p>
+                    <span class="label">Service Charge:</span>
+                    <span class="value" id="serviceCharge"></span>
+                </p>
+                <p>
+                    <span class="label">Total Amount:</span>
+                    <span class="value" id="totalAmount"></span>
+                </p>
+            </div>
+
+            <div class="tracking-info">
+                <p>Track your transfer using this reference number:</p>
+                <p class="tracking-number" id="trackingNumber"></p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="landing.html" class="button secondary-button">Make Another Transfer</a>
+                <a href="#" class="button primary-button">Track Transfer</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate a random tracking number
+        function generateTrackingNumber() {
+            const prefix = 'RL';
+            const timestamp = Date.now().toString().slice(-6);
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `${prefix}${timestamp}${random}`;
+        }
+
+        // Load transfer details from URL parameters
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            
+            document.getElementById('fromDetails').textContent = 
+                `${params.get('fromCountry')} - ${params.get('fromCurrency')}`;
+            
+            document.getElementById('toDetails').textContent = 
+                `${params.get('toCountry')} - ${params.get('toCurrency')}`;
+            
+            document.getElementById('transferAmount').textContent = 
+                `${params.get('amount')} ${params.get('fromCurrency')}`;
+            
+            document.getElementById('serviceCharge').textContent = 
+                `${params.get('serviceCharge')} ${params.get('toCurrency')}`;
+            
+            document.getElementById('totalAmount').textContent = 
+                `${params.get('totalAmount')} ${params.get('toCurrency')}`;
+            
+            document.getElementById('trackingNumber').textContent = generateTrackingNumber();
+        };
+    </script>
+</body>
+</html> 

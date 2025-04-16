@@ -1,0 +1,675 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RapidLink - International Money Transfer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .transfer-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: #000000;
+        }
+
+        .section-title i {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            color: #FFD700;
+        }
+
+        .section-title h2 {
+            color: #000000;
+            font-weight: 600;
+        }
+
+        /* New Transfer Grid Layout */
+        .transfer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .transfer-group {
+            margin-bottom: 0;
+        }
+
+        .transfer-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #000000;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .country-select, .currency-select {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: border-color 0.2s;
+        }
+
+        .country-select:hover, .currency-select:hover {
+            border-color: #FFD700;
+        }
+
+        .country-flag {
+            width: 32px;
+            height: 24px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .currency-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .transfer-group select, .transfer-group input {
+            width: 100%;
+            padding: 0;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            color: #2d3748;
+            cursor: pointer;
+        }
+
+        .transfer-group select:focus, .transfer-group input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .amount-group input {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .amount-group input:focus {
+            border-color: #FFD700;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #9bd6f6, #86b6f5);
+            color: #000000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(255, 215, 0, 0.3);
+        }
+
+        .rate-details {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border: 1px solid #4fc7ef;
+        }
+
+        .rate-details h3 {
+            color: #000000;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .rate-details p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #60b0e8;
+        }
+
+        .rate-details p:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            color: #000000;
+            background: #68c9f2;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .rate-details .label {
+            color: #000000;
+            font-weight: 500;
+        }
+
+        .rate-details .value {
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid #54b8ee;
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: #8db8ee;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #000000;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 200px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .transfer-section {
+                padding: 1.5rem;
+            }
+
+            .transfer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Rapid Link</h1>
+            <p>Lightning-fast international money transfers with competitive rates and zero hidden fees</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="transfer-section">
+            <div class="section-title">
+                <i class="fas fa-exchange-alt"></i>
+                <h2>Make a Transfer</h2>
+            </div>
+            <form id="transferForm" onsubmit="handleTransfer(event)">
+                <div class="transfer-grid">
+                    <!-- From Country Section -->
+                    <div class="transfer-group">
+                        <label for="fromCountry">From Country</label>
+                        <div class="country-select">
+                            <img id="fromFlag" src="https://flagcdn.com/32x24/pl.png" class="country-flag" alt="Poland flag">
+                            <select id="fromCountry" required onchange="updateCountryCurrency('from')">
+                                <option value="PL" data-currency="PLN" selected>Poland</option>
+                                <option value="ZW" data-currency="USD">Zimbabwe</option>
+                                <option value="ZA" data-currency="ZAR">South Africa</option>
+                                <option value="NG" data-currency="NGN">Nigeria</option>
+                                <option value="KE" data-currency="KES">Kenya</option>
+                                <option value="EG" data-currency="EGP">Egypt</option>
+                                <option value="MA" data-currency="MAD">Morocco</option>
+                                <option value="US" data-currency="USD">United States</option>
+                                <option value="GB" data-currency="GBP">United Kingdom</option>
+                                <option value="DE" data-currency="EUR">Germany</option>
+                                <option value="FR" data-currency="EUR">France</option>
+                                <option value="IT" data-currency="EUR">Italy</option>
+                                <option value="ES" data-currency="EUR">Spain</option>
+                                <option value="CN" data-currency="CNY">China</option>
+                                <option value="JP" data-currency="JPY">Japan</option>
+                                <option value="IN" data-currency="INR">India</option>
+                                <option value="BR" data-currency="BRL">Brazil</option>
+                                <option value="AU" data-currency="AUD">Australia</option>
+                                <option value="CA" data-currency="CAD">Canada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- To Country Section -->
+                    <div class="transfer-group">
+                        <label for="toCountry">To Country</label>
+                        <div class="country-select">
+                            <img id="toFlag" src="https://flagcdn.com/32x24/zw.png" class="country-flag" alt="Zimbabwe flag">
+                            <select id="toCountry" required onchange="updateCountryCurrency('to')">
+                                <option value="ZW" data-currency="USD" selected>Zimbabwe</option>
+                                <option value="PL" data-currency="PLN">Poland</option>
+                                <option value="ZA" data-currency="ZAR">South Africa</option>
+                                <option value="NG" data-currency="NGN">Nigeria</option>
+                                <option value="KE" data-currency="KES">Kenya</option>
+                                <option value="EG" data-currency="EGP">Egypt</option>
+                                <option value="MA" data-currency="MAD">Morocco</option>
+                                <option value="US" data-currency="USD">United States</option>
+                                <option value="GB" data-currency="GBP">United Kingdom</option>
+                                <option value="DE" data-currency="EUR">Germany</option>
+                                <option value="FR" data-currency="EUR">France</option>
+                                <option value="IT" data-currency="EUR">Italy</option>
+                                <option value="ES" data-currency="EUR">Spain</option>
+                                <option value="CN" data-currency="CNY">China</option>
+                                <option value="JP" data-currency="JPY">Japan</option>
+                                <option value="IN" data-currency="INR">India</option>
+                                <option value="BR" data-currency="BRL">Brazil</option>
+                                <option value="AU" data-currency="AUD">Australia</option>
+                                <option value="CA" data-currency="CAD">Canada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Amount Section -->
+                    <div class="transfer-group amount-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" required min="1" step="0.01" placeholder="Enter amount" onchange="calculateTransfer()">
+                    </div>
+
+                    <!-- From Currency Section -->
+                    <div class="transfer-group">
+                        <label for="fromCurrency">From Currency</label>
+                        <div class="currency-select">
+                            <img id="fromCurrencyIcon" src="https://raw.githubusercontent.com/transferwise/currency-flags/master/src/flags/3x2/pln.svg" class="currency-icon" alt="PLN">
+                            <select id="fromCurrency" required onchange="updateCurrencyIcon('fromCurrencyIcon', this.value); calculateTransfer()">
+                                <option value="PLN" selected>Polish Złoty (PLN)</option>
+                                <option value="USD">US Dollar (USD)</option>
+                                <option value="EUR">Euro (EUR)</option>
+                                <option value="GBP">British Pound (GBP)</option>
+                                <option value="ZAR">South African Rand (ZAR)</option>
+                                <option value="NGN">Nigerian Naira (NGN)</option>
+                                <option value="KES">Kenyan Shilling (KES)</option>
+                                <option value="EGP">Egyptian Pound (EGP)</option>
+                                <option value="MAD">Moroccan Dirham (MAD)</option>
+                                <option value="CNY">Chinese Yuan (CNY)</option>
+                                <option value="JPY">Japanese Yen (JPY)</option>
+                                <option value="INR">Indian Rupee (INR)</option>
+                                <option value="BRL">Brazilian Real (BRL)</option>
+                                <option value="AUD">Australian Dollar (AUD)</option>
+                                <option value="CAD">Canadian Dollar (CAD)</option>
+                                <option value="ETH">Ethereum (ETH)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- To Currency Section -->
+                    <div class="transfer-group">
+                        <label for="toCurrency">To Currency</label>
+                        <div class="currency-select">
+                            <img id="toCurrencyIcon" src="https://raw.githubusercontent.com/transferwise/currency-flags/master/src/flags/3x2/usd.svg" class="currency-icon" alt="USD">
+                            <select id="toCurrency" required onchange="updateCurrencyIcon('toCurrencyIcon', this.value); calculateTransfer()">
+                                <option value="USD" selected>US Dollar (USD)</option>
+                                <option value="PLN">Polish Złoty (PLN)</option>
+                                <option value="EUR">Euro (EUR)</option>
+                                <option value="GBP">British Pound (GBP)</option>
+                                <option value="ZAR">South African Rand (ZAR)</option>
+                                <option value="NGN">Nigerian Naira (NGN)</option>
+                                <option value="KES">Kenyan Shilling (KES)</option>
+                                <option value="EGP">Egyptian Pound (EGP)</option>
+                                <option value="MAD">Moroccan Dirham (MAD)</option>
+                                <option value="CNY">Chinese Yuan (CNY)</option>
+                                <option value="JPY">Japanese Yen (JPY)</option>
+                                <option value="INR">Indian Rupee (INR)</option>
+                                <option value="BRL">Brazilian Real (BRL)</option>
+                                <option value="AUD">Australian Dollar (AUD)</option>
+                                <option value="CAD">Canadian Dollar (CAD)</option>
+                                <option value="ETH">Ethereum (ETH)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="rateInfo" style="display: none;">
+                    <div class="rate-details">
+                        <h3>Transfer Details</h3>
+                        <p>
+                            <span class="label">Original Amount:</span>
+                            <span class="value" id="originalAmount"></span>
+                        </p>
+                        <p>
+                            <span class="label">Exchange Rate:</span>
+                            <span class="value" id="exchangeRate"></span>
+                        </p>
+                        <p>
+                            <span class="label">Amount After Exchange:</span>
+                            <span class="value" id="convertedAmount"></span>
+                        </p>
+                        <p>
+                            <span class="label">Service Charge (7%):</span>
+                            <span class="value" id="serviceCharge"></span>
+                        </p>
+                        <p>
+                            <span class="label">Blockchain Fee:</span>
+                            <span class="value" id="blockchainFee"></span>
+                        </p>
+                        <p style="border-top: 1px solid #e2e8f0; padding-top: 0.75rem; margin-top: 0.75rem;">
+                            <span class="label">Total Amount:</span>
+                            <span class="value" id="totalAmount"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">Continue to Transfer</button>
+            </form>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Lightning Fast</h3>
+                <p>Transfer money globally in seconds with our cutting-edge technology</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Bank-Grade Security</h3>
+                <p>Your transactions are protected with military-grade encryption</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-percentage"></i>
+                <h3>Best Rates</h3>
+                <p>Get the most competitive exchange rates with no hidden fees</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Country to currency mapping
+        const countryCurrencyMap = {
+            'PL': 'PLN',
+            'ZW': 'USD',
+            'ZA': 'ZAR',
+            'NG': 'NGN',
+            'KE': 'KES',
+            'EG': 'EGP',
+            'MA': 'MAD',
+            'US': 'USD',
+            'GB': 'GBP',
+            'DE': 'EUR',
+            'FR': 'EUR',
+            'IT': 'EUR',
+            'ES': 'EUR',
+            'CN': 'CNY',
+            'JP': 'JPY',
+            'IN': 'INR',
+            'BR': 'BRL',
+            'AU': 'AUD',
+            'CA': 'CAD'
+        };
+
+        // Currency to icon mapping
+        const currencyIconMap = {
+            'PLN': 'pln',
+            'USD': 'usd',
+            'EUR': 'eur',
+            'GBP': 'gbp',
+            'ZAR': 'zar',
+            'NGN': 'ngn',
+            'KES': 'kes',
+            'EGP': 'egp',
+            'MAD': 'mad',
+            'CNY': 'cny',
+            'JPY': 'jpy',
+            'INR': 'inr',
+            'BRL': 'brl',
+            'AUD': 'aud',
+            'CAD': 'cad',
+            'ETH': 'eth'
+        };
+
+        // Load exchange rates on page load
+        async function loadExchangeRates() {
+            try {
+                const response = await fetch('http://localhost:3000/api/exchange-rates');
+                const data = await response.json();
+                if (data.success) {
+                    console.log('Exchange rates loaded:', data.rates);
+                }
+            } catch (error) {
+                console.error('Error loading exchange rates:', error);
+            }
+        }
+
+        // Update flag and currency when country changes
+        function updateCountryCurrency(type) {
+            const countrySelect = document.getElementById(`${type}Country`);
+            const currencySelect = document.getElementById(`${type}Currency`);
+            const flagId = `${type}Flag`;
+            const currencyIconId = `${type}CurrencyIcon`;
+            
+            const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            const countryCode = selectedOption.value;
+            const currencyCode = selectedOption.getAttribute('data-currency');
+            
+            // Update flag
+            updateFlag(flagId, countryCode);
+            
+            // Update currency select
+            currencySelect.value = currencyCode;
+            
+            // Update currency icon
+            updateCurrencyIcon(currencyIconId, currencyCode);
+            
+            // Recalculate transfer
+            calculateTransfer();
+        }
+
+        // Update flag images
+        function updateFlag(flagId, countryCode) {
+            const flag = document.getElementById(flagId);
+            flag.src = `https://flagcdn.com/32x24/${countryCode.toLowerCase()}.png`;
+            flag.alt = `${countryCode} flag`;
+        }
+
+        // Update currency icon
+        function updateCurrencyIcon(iconId, currencyCode) {
+            const icon = document.getElementById(iconId);
+            const currencyLower = currencyCode.toLowerCase();
+            
+            // Special case for ETH as it might not be in the standard flags
+            if (currencyCode === 'ETH') {
+                icon.src = `https://cryptologos.cc/logos/ethereum-eth-logo.png?v=025`;
+            } else {
+                icon.src = `https://raw.githubusercontent.com/transferwise/currency-flags/master/src/flags/3x2/${currencyLower}.svg`;
+            }
+            icon.alt = `${currencyCode} icon`;
+        }
+
+        // Calculate transfer amount
+        async function calculateTransfer() {
+            const amount = document.getElementById('amount').value;
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            const fromCountry = document.getElementById('fromCountry').value;
+            const toCountry = document.getElementById('toCountry').value;
+
+            if (!amount || !fromCurrency || !toCurrency) return;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/calculate-transfer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        amount: parseFloat(amount),
+                        fromCurrency,
+                        toCurrency,
+                        fromCountry,
+                        toCountry
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    document.getElementById('rateInfo').style.display = 'block';
+                    document.getElementById('originalAmount').textContent = `${amount} ${fromCurrency}`;
+                    document.getElementById('exchangeRate').textContent = `1 ${fromCurrency} = ${data.exchangeRate} ${toCurrency}`;
+                    document.getElementById('convertedAmount').textContent = `${data.convertedAmount.toFixed(2)} ${toCurrency}`;
+                    
+                    // Calculate 7% service charge
+                    const serviceCharge = data.convertedAmount * 0.07;
+                    document.getElementById('serviceCharge').textContent = `${serviceCharge.toFixed(2)} ${toCurrency}`;
+                    
+                    document.getElementById('blockchainFee').textContent = `${data.blockchainFee.toFixed(2)} ${toCurrency}`;
+                    
+                    // Update total amount to include 7% service charge
+                    const totalAmount = data.convertedAmount + serviceCharge + data.blockchainFee;
+                    document.getElementById('totalAmount').textContent = `${totalAmount.toFixed(2)} ${toCurrency}`;
+                }
+            } catch (error) {
+                console.error('Error calculating transfer:', error);
+            }
+        }
+
+        // Handle form submission
+        async function handleTransfer(event) {
+            event.preventDefault();
+            
+            const fromCountry = document.getElementById('fromCountry').value;
+            const toCountry = document.getElementById('toCountry').value;
+            const amount = document.getElementById('amount').value;
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+
+            if (fromCountry === toCountry) {
+                alert('Please select different countries for transfer');
+                return false;
+            }
+
+            // Calculate service charge (7%)
+            const serviceCharge = (amount * 0.07).toFixed(2);
+            const totalAmount = (parseFloat(amount) + parseFloat(serviceCharge)).toFixed(2);
+
+            // Redirect to payment page with transfer details
+            const params = new URLSearchParams({
+                fromCountry,
+                toCountry,
+                amount,
+                fromCurrency,
+                toCurrency,
+                serviceCharge,
+                totalAmount
+            });
+
+            window.location.href = `payment.html?${params.toString()}`;
+            return false;
+        }
+
+        // Initialize the form
+        function initForm() {
+            // Set initial currency values based on default country selections
+            updateCountryCurrency('from');
+            updateCountryCurrency('to');
+            
+            // Add event listeners
+            document.getElementById('amount').addEventListener('input', calculateTransfer);
+            document.getElementById('fromCurrency').addEventListener('change', function() {
+                updateCurrencyIcon('fromCurrencyIcon', this.value);
+                calculateTransfer();
+            });
+            document.getElementById('toCurrency').addEventListener('change', function() {
+                updateCurrencyIcon('toCurrencyIcon', this.value);
+                calculateTransfer();
+            });
+            
+            // Load exchange rates when page loads
+            loadExchangeRates();
+        }
+
+        // Initialize the form when page loads
+        window.onload = initForm;
+    </script>
+</body>
+</html>
